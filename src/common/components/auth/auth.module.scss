@@ -1,0 +1,40 @@
+@import "../../styles/variables.module.scss";
+
+.root {
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+  .required {
+    color: #eb6635;
+  }
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    .input-container {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      row-gap: 8px;
+      .label {
+        display: flex;
+      }
+    }
+    .identification {
+      display: flex;
+      column-gap: 16px;
+    }
+  }
+  .general-conditions {
+    display: flex;
+    column-gap: 4px;
+    white-space: nowrap;
+    p {
+      white-space: nowrap;
+    }
+  }
+  .link {
+    color: #dea61a;
+  }
+}

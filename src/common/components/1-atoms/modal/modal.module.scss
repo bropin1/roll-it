@@ -1,0 +1,34 @@
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(black, 0.6);
+  margin: 0 auto;
+}
+
+.wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  padding: 6px;
+  background-color: red;
+
+  @media (min-width: 640px) {
+    // Tailwind's sm breakpoint
+    width: 83.333333%; // 10/12
+  }
+
+  @media (min-width: 768px) {
+    // Tailwind's md breakpoint
+    width: 66.666667%; // 8/12
+  }
+
+  @media (min-width: 1024px) {
+    // Tailwind's lg breakpoint
+    width: 50%; // 1/2
+  }
+}

@@ -1,0 +1,57 @@
+.root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+
+  .required {
+    color: #eb6635;
+  }
+  .header {
+    h1 {
+      font-family: "Eskool", sans-serif;
+      margin-bottom: 8px;
+    }
+    .subtitle-wrapper {
+      display: flex;
+    }
+  }
+
+  .separator {
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+    color: #565656;
+    .line {
+      flex: 1;
+      height: 1px;
+      background-color: #dfdfdf;
+    }
+  }
+  .provider-buttons {
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      color: white;
+      background: none;
+      border: none;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
+      border-radius: 9px;
+      padding: 12px 0;
+      column-gap: 8px;
+      &.googleIcon {
+        background-color: #5383ec;
+        margin-bottom: 16px;
+      }
+      &.appleIcon {
+        background-color: black;
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@import "../../common/styles/variables.module.scss";
+
+.root {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  overflow-y: hidden;
+  font-size: 14px;
+  .child-container {
+    flex: 1;
+    padding: 48px 120px;
+    padding-bottom: 0;
+  }
+
+  .svg-container {
+    width: 50%;
+    background-color: $UI-background;
+    svg {
+      width: 100%;
+      height: 100%;
+      rect {
+      }
+      path {
+      }
+    }
+  }
+}
