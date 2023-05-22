@@ -4,6 +4,10 @@
   padding: 0 12px;
   font-family: inherit;
   width: 100%;
+  &:focus {
+    outline: 2px solid #f5bf42;
+    outline-offset: -2px;
+  }
   &.medium {
     font-size: 16px;
     height: 45px;

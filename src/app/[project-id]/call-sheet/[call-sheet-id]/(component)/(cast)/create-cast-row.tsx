@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 import Modal from "@/common/components/1-atoms/modal/modal";
 import styles from "./styling.module.scss";
+import InputComponent from "../../../../../../common/components/1-atoms/input/input";
+import Button from "@/common/components/1-atoms/button/button";
 
 export default function CreateCastRole({
   params,
@@ -88,37 +90,65 @@ export default function CreateCastRole({
 
   return (
     <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Ajouter un cast</h1>
-        <span className={styles.subtitle}>
-          Remplissez les champs ci-dessous pour ajouter un cast
-        </span>
+      <div className={styles.root}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Ajouter un cast</h1>
+          <span className={styles.subtitle}>
+            Remplissez les champs ci-dessous pour ajouter un cast
+          </span>
+        </div>
+        <form onSubmit={onSubmitHandler} className={styles.content}>
+          <div className={styles["input-wrapper"]}>
+            <span className={styles.label}>Numéro du cast</span>
+            <InputComponent
+              variant="medium"
+              type="number"
+              name="role-number"
+              ref={roleNumberRef}
+            />
+          </div>
+          <div className={styles["input-wrapper"]}>
+            <span className={styles.label}>Nom et Prénom</span>
+            <InputComponent
+              variant="medium"
+              type="text"
+              name="username"
+              ref={userNameRef}
+            />
+          </div>
+          <div className={styles["input-wrapper"]}>
+            <span className={styles.label}>Rôle</span>
+            <InputComponent
+              variant="medium"
+              type="text"
+              name="name"
+              ref={nameRef}
+            />
+          </div>
+          <div className={styles["input-wrapper"]}>
+            <span className={styles.label}>Email</span>
+            <select
+              className={styles.select}
+              name="email"
+              defaultValue={email}
+              onChange={(e) => {
+                onChangeHandler(e);
+              }}
+            >
+              {projectUsers.map((user) => {
+                return (
+                  <option key={user.email} value={user.email}>
+                    {user.email}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <Button variant="default" type="submit" className={styles.button}>
+            Ajouter le cast
+          </Button>
+        </form>
       </div>
-      <form onSubmit={onSubmitHandler}>
-        <span>Numéro du cast</span>
-        <input type="number" name="role-number" ref={roleNumberRef} />
-        <span>Nom et Prénom</span>
-        <input type="text" name="username" ref={userNameRef} />
-        <span>Rôle</span>
-        <input type="text" name="name" ref={nameRef} />
-        <span>email</span>
-        <select
-          name="email"
-          defaultValue={email}
-          onChange={(e) => {
-            onChangeHandler(e);
-          }}
-        >
-          {projectUsers.map((user) => {
-            return (
-              <option key={user.email} value={user.email}>
-                {user.email}
-              </option>
-            );
-          })}
-        </select>
-        <button type="submit">Create role</button>
-      </form>
     </Modal>
   );
 }

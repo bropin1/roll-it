@@ -1,0 +1,35 @@
+.root {
+  .header {
+    padding: 0 0 24px 0;
+    border-bottom: 1px solid #dfdfdf;
+    .title {
+      font-size: 24px;
+    }
+    .subtitle {
+    }
+  }
+  .content {
+    padding: 24px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+    .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      row-gap: 8px;
+      .label {
+        font-size: 14px;
+        color: #565656;
+      }
+      .select {
+        z-index: 99;
+        outline: none;
+        border-radius: 9px;
+        height: 44px;
+        border: 1px solid #dfdfdf;
+        font-size: 16px;
+        padding: 0 12px;
+      }
+    }
+  }
+}

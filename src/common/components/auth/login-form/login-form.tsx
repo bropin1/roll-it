@@ -41,7 +41,7 @@ export function LoginForm({ className }: RegisterFormProps) {
       return supabaseResponse.error;
     }
 
-    router.push("/");
+    router.push("/13/call-sheet/1");
   }
 
   return (

@@ -22,6 +22,7 @@ type castData = Omit<
     user_name: string;
   };
 };
+
 type castRolesData = Database["public"]["Tables"]["cast_roles"]["Row"];
 type ItemKey = keyof castData | keyof castRolesData | "sequences";
 
@@ -150,6 +151,7 @@ export default function CastTable({
   ) {
     console.log("value:", event.target.value);
     console.log("item.id", rowId);
+    setSelectedRowIndex(-1);
     // update the row in the db
     const { data, error } = (await supabase
       .from("cast_call_times")
@@ -218,6 +220,7 @@ export default function CastTable({
                         onChange={(e) => {
                           onChangeRoleHandler(e, item.id);
                         }}
+                        className={styles.select}
                       >
                         {castRolesData.map((item) => {
                           return (
