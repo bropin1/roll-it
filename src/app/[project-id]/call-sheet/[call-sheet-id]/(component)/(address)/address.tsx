@@ -6,6 +6,8 @@ import useFetchData from "../hooks/useFetchTable";
 import styles from "../table.module.scss";
 import InputComponent from "../../../../../../common/components/1-atoms/input/input";
 import Button from "@/common/components/1-atoms/button/button";
+import stylesButton from "./styling.module.scss";
+
 type Data = Database["public"]["Tables"]["locations"]["Row"];
 type ItemKey = keyof Data;
 
@@ -141,6 +143,7 @@ export default function AddressTable({
         </tbody>
       </table>
       <Button
+        className={styles.button}
         variant="text"
         onClick={() => {
           addRowHandle();

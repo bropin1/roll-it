@@ -277,12 +277,13 @@ export default function CastTable({
         </table>
 
         <Button
+          className={styles.button}
           variant="text"
           onClick={() => {
             setModalOpen(true);
           }}
         >
-          + Create role
+          + Ajouter un cast
         </Button>
       </div>
 
