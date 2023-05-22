@@ -9,6 +9,7 @@ import styles from "../table.module.scss";
 import InputComponent from "../../../../../../common/components/1-atoms/input/input";
 import Button from "@/common/components/1-atoms/button/button";
 import ReadOnlyCellComponent from "./readOnlyCellComponent";
+import { MouseEvent } from "react";
 
 type castData = Omit<
   Database["public"]["Tables"]["cast_call_times"]["Row"],
