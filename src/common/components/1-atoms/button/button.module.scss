@@ -1,4 +1,4 @@
-.button {
+.root {
   font: inherit;
   cursor: pointer;
   outline: inherit;
@@ -8,7 +8,12 @@
   border-radius: 9px;
   font-size: 14px;
   font-weight: 500;
-
+  &.text {
+    color: #006dd1;
+    background-color: transparent;
+    height: auto;
+    padding: 0;
+  }
   &.disabled {
     background-color: #efefef;
   }

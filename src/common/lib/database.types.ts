@@ -137,21 +137,45 @@ export interface Database {
       }
       department_call_times: {
         Row: {
-          call_sheet_id: number | null
-          department_id: number | null
-          id: number
+          call_sheet_id: number
+          Casting: string | null
+          "H.M.C.": string | null
+          Image: string | null
+          Lumière: string | null
+          Machinerie: string | null
+          "Mise en scène": string | null
+          Production: string | null
+          Réalisation: string | null
+          Régie: string | null
+          Son: string | null
           time: string | null
         }
         Insert: {
-          call_sheet_id?: number | null
-          department_id?: number | null
-          id?: number
+          call_sheet_id: number
+          Casting?: string | null
+          "H.M.C."?: string | null
+          Image?: string | null
+          Lumière?: string | null
+          Machinerie?: string | null
+          "Mise en scène"?: string | null
+          Production?: string | null
+          Réalisation?: string | null
+          Régie?: string | null
+          Son?: string | null
           time?: string | null
         }
         Update: {
-          call_sheet_id?: number | null
-          department_id?: number | null
-          id?: number
+          call_sheet_id?: number
+          Casting?: string | null
+          "H.M.C."?: string | null
+          Image?: string | null
+          Lumière?: string | null
+          Machinerie?: string | null
+          "Mise en scène"?: string | null
+          Production?: string | null
+          Réalisation?: string | null
+          Régie?: string | null
+          Son?: string | null
           time?: string | null
         }
       }

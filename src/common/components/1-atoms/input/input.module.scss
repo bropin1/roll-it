@@ -1,7 +1,26 @@
 .root {
-  font-size: 16px;
-  height: 45px;
   border-radius: 9px;
   border: 1px solid #dfdfdf;
   padding: 0 12px;
+  font-family: inherit;
+  width: 100%;
+  &.medium {
+    font-size: 16px;
+    height: 45px;
+  }
+  &.small {
+    font-size: 12px;
+    height: 32px;
+    border-radius: 6px;
+  }
+  &.cell {
+    border: 1px solid transparent;
+    height: 36px;
+    padding: 0 16px;
+    &:hover,
+    &:focus {
+      border: 1px solid #dfdfdf;
+      outline: none;
+    }
+  }
 }

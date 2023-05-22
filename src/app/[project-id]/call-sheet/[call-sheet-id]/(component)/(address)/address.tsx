@@ -3,7 +3,9 @@ import { supabase } from "@/common/supabaseConfig/supabaseConfig";
 import { useEffect, useState, useRef, createRef, useCallback } from "react";
 import { Database } from "@/common/lib/database.types";
 import useFetchData from "../hooks/useFetchTable";
-
+import styles from "../table.module.scss";
+import InputComponent from "../../../../../../common/components/1-atoms/input/input";
+import Button from "@/common/components/1-atoms/button/button";
 type Data = Database["public"]["Tables"]["locations"]["Row"];
 type ItemKey = keyof Data;
 
@@ -43,11 +45,15 @@ const headers: Header[] = [
 //BUT HOW TO PRODUCE A UNIQUE ID ?
 //MAYBE INSERT BUT THEN GET BACK THE ID -> NO REFETCH!!!
 
-export default function AddressTable({}) {
+export default function AddressTable({
+  params,
+}: {
+  params: { "project-id": string; "call-sheet-id": string };
+}) {
   const { data, loading, error, refetch: fetchData } = useFetchData(tableName);
-
+  // add a state to store data
   const inputRefs = useRef<Refs>({});
-
+  const [displayedData, setDisplayedData] = useState<Data[]>([]);
   //Map inputRefs to its input
   useEffect(() => {
     data.forEach((item) => {
@@ -59,6 +65,8 @@ export default function AddressTable({}) {
         inputRefs.current[item.id][header.key] = createRef();
       });
     });
+
+    setDisplayedData(data);
   }, [data]);
 
   //update the value of input that correspond to an id and a key
@@ -81,18 +89,32 @@ export default function AddressTable({}) {
   async function addRowHandle() {
     console.log("add row");
     try {
-      const { error } = await supabase.from(tableName).insert({}); //initialize the row
+      const { data, error } = await supabase
+        .from(tableName)
+        .insert({})
+        .select(); //initialize the row
       console.log(error);
-      if (error) return error;
-      //fetch the data
-      fetchData();
+      if (error) {
+        console.log(error);
+        return error;
+      }
+      //create the ref
+      headers.forEach((header) => {
+        if (!inputRefs.current[data[0].id]) {
+          inputRefs.current[data[0].id] = {};
+        }
+        inputRefs.current[data[0].id][header.key] = createRef();
+      });
+
+      //update the ui
+      setDisplayedData((prevState) => [...prevState, data[0]]);
     } catch (error) {
       return error;
     }
   }
 
   return (
-    <div>
+    <div className={styles.root}>
       <table>
         <thead>
           <tr>
@@ -102,11 +124,12 @@ export default function AddressTable({}) {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
+          {displayedData.map((item) => (
             <tr key={item.id}>
               {headers.map((header) => (
                 <td key={header.key}>
-                  <input
+                  <InputComponent
+                    variant="cell"
                     ref={inputRefs.current[item.id]?.[header.key]}
                     defaultValue={item[header.key] ?? undefined} //if values are changed in the server just refetch the page via websocket
                     onChange={() => changeHandle(item.id, header.key)}
@@ -117,13 +140,14 @@ export default function AddressTable({}) {
           ))}
         </tbody>
       </table>
-      <button
+      <Button
+        variant="text"
         onClick={() => {
           addRowHandle();
         }}
       >
-        add row
-      </button>
+        + Ajouter un lieu
+      </Button>
     </div>
   );
 }

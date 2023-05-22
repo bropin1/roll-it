@@ -5,6 +5,10 @@ import { Database } from "@/common/lib/database.types";
 import useFetchTable from "../hooks/useFetchTable";
 import CreateCastRole from "./create-cast-row";
 import { ChangeEvent } from "react";
+import styles from "../table.module.scss";
+import InputComponent from "../../../../../../common/components/1-atoms/input/input";
+import Button from "@/common/components/1-atoms/button/button";
+import ReadOnlyCellComponent from "./readOnlyCellComponent";
 
 type castData = Omit<
   Database["public"]["Tables"]["cast_call_times"]["Row"],
@@ -68,6 +72,7 @@ export default function CastTable({
 }: {
   params: { "project-id": string; "call-sheet-id": string };
 }) {
+  const [selectedRowIndex, setSelectedRowIndex] = useState<number>(-1);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   //data used to populate the table
   const { data, loading, error, refetch } = useFetchTable(
@@ -103,6 +108,22 @@ export default function CastTable({
       });
     });
   }, [data]);
+
+  useEffect(() => {
+    const handleClickBrowser = (event: MouseEvent) => {
+      setSelectedRowIndex(-1);
+      // Handle the click event here
+      console.log("clicked outside ");
+    };
+
+    // Add event listener when the component mounts
+    window.addEventListener("click", handleClickBrowser);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("click", handleClickBrowser);
+    };
+  }, []);
 
   //update the value of input that correspond to an id and a key
   async function changeHandle(id: number, key: string) {
@@ -148,19 +169,6 @@ export default function CastTable({
     });
   }
 
-  // async function addRowHandle() {
-  //   console.log("add row");
-  //   try {
-  //     const { error } = await supabase.from(tableName).insert({}); //initialize the row
-  //     console.log(error);
-  //     if (error) return error;
-  //     //fetch the data
-  //     refetch();
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // }
-
   function getSequence(castRoleId: number) {
     return sequence_role_unions
       .filter((item) => item.cast_role_id === castRoleId)
@@ -168,8 +176,17 @@ export default function CastTable({
       .join(", ");
   }
 
+  function onClickHandle(
+    e: MouseEvent<HTMLTableDataCellElement>,
+    index: number
+  ) {
+    e.stopPropagation();
+    console.log("clicked td");
+    setSelectedRowIndex(index);
+  }
+
   return (
-    <Fragment>
+    <div className={styles.root}>
       <div>
         <table>
           <thead>
@@ -183,26 +200,54 @@ export default function CastTable({
             {dataCopy.map((item, index) => {
               return (
                 <tr key={index}>
-                  <td key="number">
-                    {item?.cast_role_id?.number}
-                    <select
-                      name="role-select"
-                      defaultValue={item?.cast_role_id?.id}
-                      onChange={(e) => {
-                        onChangeRoleHandler(e, item.id);
-                      }}
-                    >
-                      {castRolesData.map((item) => {
-                        return (
-                          <option key={item.id} value={item.id}>
-                            {item.fiction_name}
-                          </option>
-                        );
-                      })}
-                    </select>
+                  <td
+                    key="number"
+                    onClick={(e) => {
+                      onClickHandle(e, index);
+                    }}
+                  >
+                    {selectedRowIndex !== index ? (
+                      <ReadOnlyCellComponent>
+                        {item?.cast_role_id?.number}
+                      </ReadOnlyCellComponent>
+                    ) : (
+                      <select
+                        name="role-select"
+                        defaultValue={item?.cast_role_id?.id}
+                        onChange={(e) => {
+                          onChangeRoleHandler(e, item.id);
+                        }}
+                      >
+                        {castRolesData.map((item) => {
+                          return (
+                            <option key={item.id} value={item.id}>
+                              {item.fiction_name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    )}
                   </td>
-                  <td key="fiction_name">{item?.cast_role_id?.fiction_name}</td>
-                  <td key="user_name">{item?.cast_role_id?.user_name}</td>
+                  <td
+                    key="fiction_name"
+                    onClick={(e) => {
+                      onClickHandle(e, index);
+                    }}
+                  >
+                    <ReadOnlyCellComponent>
+                      {item?.cast_role_id?.fiction_name}
+                    </ReadOnlyCellComponent>
+                  </td>
+                  <td
+                    key="user_name"
+                    onClick={(e) => {
+                      onClickHandle(e, index);
+                    }}
+                  >
+                    <ReadOnlyCellComponent>
+                      {item?.cast_role_id?.user_name}
+                    </ReadOnlyCellComponent>
+                  </td>
                   <td key="sequences">
                     {
                       //filter the sequences with cast_role_id
@@ -213,13 +258,13 @@ export default function CastTable({
                     }
                   </td>
                   <td key="call_time">
-                    <input></input>
+                    <InputComponent variant="cell"></InputComponent>
                   </td>
                   <td key="hmc_call_time">
-                    <input></input>
+                    <InputComponent variant="cell"></InputComponent>
                   </td>
                   <td key="pat_call_time">
-                    <input></input>
+                    <InputComponent variant="cell"></InputComponent>
                   </td>
                 </tr>
               );
@@ -227,13 +272,14 @@ export default function CastTable({
           </tbody>
         </table>
 
-        <button
+        <Button
+          variant="text"
           onClick={() => {
             setModalOpen(true);
           }}
         >
-          Create role
-        </button>
+          + Create role
+        </Button>
       </div>
 
       <CreateCastRole
@@ -242,6 +288,6 @@ export default function CastTable({
         params={params}
         setTableRow={setDataCopy}
       ></CreateCastRole>
-    </Fragment>
+    </div>
   );
 }

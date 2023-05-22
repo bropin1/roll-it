@@ -7,7 +7,8 @@ type TableNames = keyof Database["public"]["Tables"];
 
 export default function useFetchTable<T extends TableNames>(
   tableName: T,
-  selectQuery?: string
+  selectQuery?: string,
+  filter?: { column: string; condition: string }
 ) {
   // type FetchedData<T extends TableNames> = {
   //   [K in keyof Database["public"]["Tables"][T]["Row"]]: Database["public"]["Tables"][T]["Row"][K];
@@ -20,11 +21,18 @@ export default function useFetchTable<T extends TableNames>(
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const { data: fetchData, error } = await supabase
-        .from(tableName)
-        .select(selectQuery);
-      if (error) throw error;
-      setData(fetchData);
+      let result;
+      if (filter) {
+        result = await supabase
+          .from(tableName)
+          .select(selectQuery)
+          .eq(filter.column, filter.condition);
+      } else {
+        result = await supabase.from(tableName).select(selectQuery);
+      }
+
+      if (result.error) throw error;
+      setData(result.data);
     } catch (error) {
       setError(error as Error);
     } finally {

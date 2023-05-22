@@ -1,0 +1,18 @@
+.root {
+  margin-bottom: 24px;
+  padding-top: 40px;
+  .title-wrapper {
+    color: #353535;
+
+    .breadcrumbs {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .title {
+      font-size: 32px;
+      font-weight: 500;
+    }
+  }
+  .action-buttons {
+  }
+}

@@ -51,6 +51,7 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
               <p className={styles.required}>*</p>
             </div>
             <InputComponent
+              variant="medium"
               id="name"
               placeholder=""
               type="text"
@@ -62,6 +63,7 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
               <span>Nom</span> <p className={styles.required}>*</p>
             </div>
             <InputComponent
+              variant="medium"
               id="last-name"
               placeholder=""
               type="text"
@@ -75,6 +77,7 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
             <p className={styles.required}>*</p>
           </div>
           <InputComponent
+            variant="medium"
             id="email"
             placeholder="name@example.com"
             type="email"
@@ -89,6 +92,7 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
             <p className={styles.required}>*</p>
           </div>
           <InputComponent
+            variant="medium"
             id="password"
             placeholder=""
             type="password"
@@ -103,7 +107,7 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
         <Link href="/conditions">Conditions générale d'utilisation</Link>
       </div>
 
-      <Button disabled={isLoading} type="submit">
+      <Button variant="default" disabled={isLoading} type="submit">
         {isLoading && "loading"}
         S'inscrire
       </Button>

@@ -52,6 +52,7 @@ export function LoginForm({ className }: RegisterFormProps) {
             <span>Email</span>
           </div>
           <InputComponent
+            variant="medium"
             id="email"
             placeholder="name@example.com"
             type="email"
@@ -65,6 +66,7 @@ export function LoginForm({ className }: RegisterFormProps) {
             <span>Password</span>
           </div>
           <InputComponent
+            variant="medium"
             id="password"
             placeholder=""
             type="password"
@@ -73,7 +75,7 @@ export function LoginForm({ className }: RegisterFormProps) {
           ></InputComponent>
         </div>
       </div>
-      <Button disabled={isLoading} type="submit">
+      <Button variant="default" disabled={isLoading} type="submit">
         {isLoading && "loading"}
         Sign In with Email
       </Button>

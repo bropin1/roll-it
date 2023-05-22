@@ -20,6 +20,7 @@ export default function Modal({
 
   const onClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      e.stopPropagation();
       console.log("clicked");
       if (e.target === overlay.current || e.target === wrapper.current) {
         if (onDismiss) onDismiss();

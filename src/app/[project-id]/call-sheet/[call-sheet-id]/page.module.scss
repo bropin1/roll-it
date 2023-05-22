@@ -1,0 +1,18 @@
+.root {
+  padding: 0 32px;
+  .content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 56px;
+    .module {
+      .module-header {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        color: #353535;
+        column-gap: 8px;
+        margin-bottom: 16px;
+      }
+    }
+  }
+}

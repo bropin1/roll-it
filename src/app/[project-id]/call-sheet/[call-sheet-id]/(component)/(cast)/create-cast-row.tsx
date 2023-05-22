@@ -6,6 +6,7 @@ import { supabase } from "@/common/supabaseConfig/supabaseConfig";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 import Modal from "@/common/components/1-atoms/modal/modal";
+import styles from "./styling.module.scss";
 
 export default function CreateCastRole({
   params,
@@ -20,6 +21,7 @@ export default function CreateCastRole({
 }) {
   const router = useRouter();
   const nameRef = useRef<HTMLInputElement | null>(null);
+  const userNameRef = useRef<HTMLInputElement | null>(null);
   const roleNumberRef = useRef<HTMLInputElement | null>(null);
   const [email, setEmail] = useState<string>("");
   const {
@@ -41,11 +43,11 @@ export default function CreateCastRole({
       .insert({
         fiction_name: nameRef.current?.value,
         number: Number(roleNumberRef.current?.value),
+        user_name: userNameRef.current?.value,
         project_id: Number(params["project-id"]),
         email: email,
       })
       .select();
-
     if (error) {
       console.log("error: ", error);
       return;
@@ -86,9 +88,17 @@ export default function CreateCastRole({
 
   return (
     <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Ajouter un cast</h1>
+        <span className={styles.subtitle}>
+          Remplissez les champs ci-dessous pour ajouter un cast
+        </span>
+      </div>
       <form onSubmit={onSubmitHandler}>
         <span>Numéro du cast</span>
         <input type="number" name="role-number" ref={roleNumberRef} />
+        <span>Nom et Prénom</span>
+        <input type="text" name="username" ref={userNameRef} />
         <span>Rôle</span>
         <input type="text" name="name" ref={nameRef} />
         <span>email</span>
