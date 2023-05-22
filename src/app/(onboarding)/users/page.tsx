@@ -3,7 +3,7 @@ import { StepOne } from "./(components)/step-one";
 import { StepTwo } from "./(components)/step-two";
 import { useState } from "react";
 
-export default function usersPage() {
+export default function UsersPage() {
   const [step, setStep] = useState<number>(1);
   const [projectId, setProjectId] = useState<number | null>(null);
   return (
