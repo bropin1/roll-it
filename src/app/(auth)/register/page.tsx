@@ -37,7 +37,7 @@ export default function RegisterPage() {
               fill="white"
             />
           </svg>
-          S`&apos;`inscrire avec Google
+          S&apos;inscrire avec Google
         </button>
         <button className={styles.appleIcon}>
           <svg
@@ -52,7 +52,7 @@ export default function RegisterPage() {
               fill="white"
             />
           </svg>
-          S`&apos;`inscrire avec Apple
+          S&apos;inscrire avec Apple
         </button>
       </div>
     </div>
