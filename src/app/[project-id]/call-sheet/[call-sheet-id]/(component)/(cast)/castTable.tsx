@@ -111,7 +111,7 @@ export default function CastTable({
   }, [data]);
 
   useEffect(() => {
-    const handleClickBrowser = (event: MouseEvent) => {
+    const handleClickBrowser = (event: globalThis.MouseEvent) => {
       setSelectedRowIndex(-1);
       // Handle the click event here
       console.log("clicked outside ");
