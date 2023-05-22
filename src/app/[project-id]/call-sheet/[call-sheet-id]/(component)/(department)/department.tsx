@@ -87,9 +87,9 @@ export default function DepartmentTable({
         </thead>
         <tbody>
           <tr>
-            {headers.map((header) => {
+            {headers.map((header, index) => {
               return (
-                <td>
+                <td key={index}>
                   <InputComponent
                     variant="cell"
                     type="time"

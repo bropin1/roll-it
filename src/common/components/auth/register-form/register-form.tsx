@@ -104,12 +104,12 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
       <div className={styles["general-conditions"]}>
         <input type="checkbox" {...props} />
         <p>Je confirme les </p>
-        <Link href="/conditions">Conditions générale d'utilisation</Link>
+        <Link href="/conditions">Conditions générale d`&apos;`utilisation</Link>
       </div>
 
       <Button variant="default" disabled={isLoading} type="submit">
         {isLoading && "loading"}
-        S'inscrire
+        S`&apos;`inscrire
       </Button>
       <span>
         Déjà inscrit ?{" "}
